@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/ryanuber/columnize"
 )
 
 type Schedule struct {
@@ -63,13 +65,22 @@ func sundays(year int, month int) []time.Time {
 }
 
 func prettyPrint(schedules []Schedule) {
+	fmt.Println()
+	fmt.Println("===============================")
+	fmt.Println("Schedules")
+	fmt.Println("===============================")
 	for _, schedule := range schedules {
-		fmt.Printf("Date: %v\n", schedule.Date.Format("2006-01-02"))
-		fmt.Printf("Spiritual Thought: %s\n", schedule.SpiritualThought)
-		fmt.Printf("Message: %s\n", schedule.Message)
-		fmt.Printf("Game: %s\n", schedule.Game)
-		fmt.Println()
+		output := []string{
+			fmt.Sprintf("Date | %s", schedule.Date.Format("2006-01-02")),
+			fmt.Sprintf("Spiritual Thought | %s", schedule.SpiritualThought),
+			fmt.Sprintf("Message | %s", schedule.Message),
+			fmt.Sprintf("Game | %s", schedule.Game),
+		}
+		result := columnize.SimpleFormat(output)
+		fmt.Println(result)
+		fmt.Println("-------------------------------")
 	}
+	fmt.Println()
 }
 
 func shuffle(people []string) {
