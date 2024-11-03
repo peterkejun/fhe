@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -16,8 +17,8 @@ type Schedule struct {
 }
 
 func main() {
-	if len(os.Args) < 3 {
-		fmt.Println("Usage: fhe <year> <month>")
+	if len(os.Args) != 4 {
+		fmt.Println("Usage: fhe <year> <month> <people>")
 		return
 	}
 	year, err := strconv.Atoi(os.Args[1])
@@ -30,13 +31,7 @@ func main() {
 		fmt.Println("invalid month: ", os.Args[2])
 		return
 	}
-
-	people := []string{
-		"Diana",
-		"Victor",
-		"Sariah",
-		"Peter",
-	}
+	people := strings.Split(os.Args[3], ",")
 	shuffle(people)
 
 	sundays := sundays(year, month)
