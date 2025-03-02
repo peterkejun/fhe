@@ -19,8 +19,8 @@ type Schedule struct {
 }
 
 func main() {
-	if len(os.Args) != 4 {
-		fmt.Println("Usage: fhe <year> <month> <people>")
+	if len(os.Args) != 4 && len(os.Args) != 5 {
+		fmt.Println("Usage: fhe <year> <month> <people> [shuffle]")
 		return
 	}
 	year, err := strconv.Atoi(os.Args[1])
@@ -34,7 +34,9 @@ func main() {
 		return
 	}
 	people := strings.Split(os.Args[3], ",")
-	shuffle(people)
+	if len(os.Args) == 5 && os.Args[4] == "shuffle" {
+		shuffle(people)
+	}
 
 	sundays := sundays(year, month)
 
